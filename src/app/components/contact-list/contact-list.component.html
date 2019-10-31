@@ -1,0 +1,11 @@
+<div class="input-group mb-3">
+  <input type="text" class="form-control" (input)="filterContacts()" [(ngModel)]="filter">
+  <div class="input-group-append">
+    <span class="input-group-text">
+      <i class="fa fa-search"></i>
+    </span>
+  </div>
+</div>
+<div *ngFor="let contact of filteredContacts" class="list-group">
+  <app-contact-list-item [contact]="contact" [highlight]="filter"></app-contact-list-item>
+</div>

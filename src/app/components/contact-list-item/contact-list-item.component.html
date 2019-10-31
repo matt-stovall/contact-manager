@@ -1,0 +1,13 @@
+<a [routerLink]="['/contacts', contact.email]" routerLinkActive="active" class="list-group-item list-group-item-action">
+  <div>
+    <p class="mb-0">
+      <!-- <span innerHTML="{{contact?.name?.first | highlight: highlight}}"></span>
+      <span innerHTML="{{contact?.name?.last | highlight: highlight}}"></span> -->
+      <span innerHTML="{{contact?.name?.displayName() | highlight: highlight}}"></span>
+    </p>
+  </div>
+</a>
+
+<div>
+  <pre>{{contact | json }}</pre>
+</div>
