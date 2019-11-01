@@ -1,13 +1,21 @@
-<a [routerLink]="['/contacts', contact.email]" routerLinkActive="active" class="list-group-item list-group-item-action">
+<a [routerLink]="['/contacts', contact.email]" routerLinkActive="active" class="list-group-item list-group-item-action mb-2">
   <div>
-    <p class="mb-0">
-      <!-- <span innerHTML="{{contact?.name?.first | highlight: highlight}}"></span>
-      <span innerHTML="{{contact?.name?.last | highlight: highlight}}"></span> -->
-      <span innerHTML="{{contact?.name?.displayName() | highlight: highlight}}"></span>
-    </p>
+    <h4 class="mb-0">
+      <span innerHTML="{{contact?.name?.displayName | highlight: highlight}}"></span>
+    </h4>
+    <div>
+      <small>
+        <a [href]="'mailto:'+[contact?.email]" (click)="$event.stopPropagation()">
+          <span innerHTML="{{contact?.email | highlight: highlight}}"></span>
+        </a>
+      </small>
+    </div>
+    <div>
+      <small>
+        <a [href]="'tel:'+[contact?.phone]" (click)="$event.stopPropagation()">
+          <span innerHTML="{{contact?.phone | highlight: highlight}}"></span>
+        </a>
+      </small>
+    </div>
   </div>
 </a>
-
-<div>
-  <pre>{{contact | json }}</pre>
-</div>

@@ -1,4 +1,9 @@
-<p>contact-details works!</p>
-<p>
-  {{contactEmail}}
-</p>
+<div *ngIf="!contact" class="text-center">
+  No contact found with email
+  <code>
+    '{{contactEmail}}'
+  </code>
+</div>
+<div *ngIf="contact">
+  <pre>{{contact | json}}</pre>
+</div>

@@ -1,11 +1,60 @@
-<div class="input-group mb-3">
-  <input type="text" class="form-control" (input)="filterContacts()" [(ngModel)]="filter">
-  <div class="input-group-append">
-    <span class="input-group-text">
-      <i class="fa fa-search"></i>
-    </span>
-  </div>
+<div *ngIf="contactsLoading" class="d-flex justify-content-center">
+  <div class="spinner-border" role="status"></div>
 </div>
-<div *ngFor="let contact of filteredContacts" class="list-group">
-  <app-contact-list-item [contact]="contact" [highlight]="filter"></app-contact-list-item>
+<div *ngIf="!contactsLoading" class="row justify-content-center">
+  <div class="col col-md-8 col-lg-6">
+    <div class="row">
+      <div class="input-group mb-3">
+        <input type="text"
+          class="form-control"
+          placeholder="Filter..."
+          (input)="filterContacts()"
+          [(ngModel)]="filter"
+        />
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+          >
+            <span>
+              {{currentSort == null ? 'Sort' : currentSort.label}}
+            </span>
+            <span class="align-middle" *ngIf="currentSort">
+              <i *ngIf="currentSort.direction === true" class="fa fa-sort-alpha-asc"></i>
+              <i *ngIf="currentSort.direction === false" class="fa fa-sort-alpha-desc"></i>
+            </span>
+          </button>
+          <div class="dropdown-menu">
+            <div class="list-group">
+              <div class="list-group-item d-flex justify-content-between px-0 py-1" *ngFor="let sort of sortOptions">
+                <button (click)="sortContacts(sort);$event.stopPropagation()" class="btn btn-link btn-block">
+                  <div class="d-flex justify-content-between">
+                    <span>{{sort.label}}</span>
+                    <span class="align-middle">
+                      <i *ngIf="sort.direction === true" class="fa fa-sort-alpha-asc"></i>
+                      <i *ngIf="sort.direction === false" class="fa fa-sort-alpha-desc"></i>
+                    </span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group row">
+      <app-contact-list-item
+        *ngFor="let contact of filteredContacts"
+        [contact]="contact"
+        [highlight]="filter"
+      ></app-contact-list-item>
+    </div>
+  </div>
 </div>

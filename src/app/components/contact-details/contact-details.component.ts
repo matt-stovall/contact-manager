@@ -1,3 +1,5 @@
+import { Contact } from './../../model/contact';
+import { ContactService } from './../../services/contact.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,11 +10,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ContactDetailsComponent implements OnInit {
   contactEmail: string;
-  constructor(private route: ActivatedRoute) { }
+  contact: Contact;
+  constructor(private route: ActivatedRoute, private contactService: ContactService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.contactEmail = params.contactId;
+      if (this.contactEmail) {
+        this.contact = this.contactService.getContactByEmail(this.contactEmail);
+      }
     });
   }
 
