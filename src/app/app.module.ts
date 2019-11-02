@@ -9,6 +9,7 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
 import { ContactListItemComponent } from './components/contact-list-item/contact-list-item.component';
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { HighlightPipe } from './pipes/highlight.pipe';
+import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     ContactListComponent,
     ContactListItemComponent,
     ContactDetailsComponent,
-    HighlightPipe
+    HighlightPipe,
+    PhoneNumberPipe
   ],
   imports: [
     BrowserModule,

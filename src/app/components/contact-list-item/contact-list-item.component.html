@@ -1,7 +1,8 @@
-<a [routerLink]="['/contacts', contact.email]" routerLinkActive="active" class="list-group-item list-group-item-action mb-2">
+<a [routerLink]="['/contacts', contact.email]" routerLinkActive="active"
+  class="list-group-item list-group-item-action my-1 d-flex align-items-center justify-content-between contact-item">
   <div>
     <h4 class="mb-0">
-      <span innerHTML="{{contact?.name?.displayName | highlight: highlight}}"></span>
+      <span innerHTML="{{contact?.name?.displayName() | highlight: highlight}}"></span>
     </h4>
     <div>
       <small>
@@ -13,9 +14,12 @@
     <div>
       <small>
         <a [href]="'tel:'+[contact?.phone]" (click)="$event.stopPropagation()">
-          <span innerHTML="{{contact?.phone | highlight: highlight}}"></span>
+          <span innerHTML="{{contact?.phone | phone: 'US' | highlight: highlight}}"></span>
         </a>
       </small>
     </div>
+  </div>
+  <div class="profile-img" *ngIf="contact?.images?.large">
+    <img [src]="contact?.images?.large" alt="[contact?.name?.displayName()]">
   </div>
 </a>

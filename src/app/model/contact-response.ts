@@ -7,6 +7,7 @@ export class ContactResponse {
   phone: string;
   name: ContactResponseName;
   location: ContactResponseLocation;
+  picture: ContactResponsePicture;
 }
 
 export class ContactResponseName {
@@ -20,4 +21,10 @@ export class ContactResponseLocation {
   city: string;
   state: string;
   postcode: string;
+}
+
+export class ContactResponsePicture {
+  large: string;
+  medium: string;
+  thumbnail: string;
 }

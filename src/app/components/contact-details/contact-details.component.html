@@ -1,9 +1,122 @@
-<div *ngIf="!contact" class="text-center">
-  No contact found with email
-  <code>
-    '{{contactEmail}}'
-  </code>
+<div *ngIf="!contact?.email && !isCreating" class="text-center">
+  <div>
+    No contact found with email
+    <code>
+      '{{contactEmail}}'
+    </code>
+  </div>
+  <div>
+    <a [routerLink]="['/contacts']" routerLinkActive="router-link-active" >Back to Contact List</a>
+  </div>
 </div>
-<div *ngIf="contact">
-  <pre>{{contact | json}}</pre>
+
+<div *ngIf="contact?.email || isCreating" class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col col-md-8 col-lg-6">
+      <div class="row justify-content-between">
+        <button class="btn btn-outline-secondary border-0" [routerLink]="['/contacts']" routerLinkActive="router-link-active" >
+          <i class="fa fa-chevron-left"></i> Back
+        </button>
+        <span class="mx-auto" style="display: inline-block;">
+        </span>
+        <button class="btn btn-outline-secondary border-0" (click)="startEdit()" *ngIf="!isEditing">
+          <i class="fa fa-pencil"></i> Edit
+        </button>
+        <span *ngIf="isEditing">
+          <button class="btn btn-outline-success border-0" (click)="saveContact()">
+            <span *ngIf="isSaving" class="spinner-border spinner-border-sm"></span>
+            <i *ngIf="!isSaving" class="fa fa-save"></i>
+             Save
+          </button>
+          <button class="btn btn-outline-danger border-0" (click)="cancelEdit()">
+            <i class="fa fa-close"></i> Cancel
+          </button>
+        </span>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <h5 class="row my-1">
+            Name
+          </h5>
+          <div class="form-group row mb-1">
+            <label for="firstName" class="col-md-4 col-form-label col-form-label-sm">First Name</label>
+            <div class="col-md-8">
+              <input id="firstName" type="text" class="form-control" [(ngModel)]="contact?.name.first" [readonly]="!isEditing">
+            </div>
+          </div>
+          <div class="form-group row mb-1">
+            <label for="lastName" class="col-md-4 col-form-label col-form-label-sm">Last Name</label>
+            <div class="col-md-8">
+              <input id="lastName" type="text" class="form-control" [(ngModel)]="contact?.name.last" [readonly]="!isEditing">
+            </div>
+          </div>
+          <h5 class="row my-1">
+            Contact
+          </h5>
+          <div class="form-group row mb-1">
+            <label for="phone" class="col-md-4 col-form-label col-form-label-sm">Phone</label>
+            <div class="col-md-8">
+              <input id="phone" type="tel" class="form-control" [(ngModel)]="contact.phone" [readonly]="!isEditing">
+            </div>
+          </div>
+          <div class="form-group row mb-1">
+            <label for="email" class="col-md-4 col-form-label col-form-label-sm">Email</label>
+            <div class="col-md-8">
+              <input id="email" type="text" class="form-control" [(ngModel)]="contact.email" [readonly]="!isEditing">
+            </div>
+          </div>
+          <h5 class="row my-1">
+            Address
+          </h5>
+          <div class="form-group row mb-1">
+            <label for="street" class="col-md-4 col-form-label col-form-label-sm">Street</label>
+            <div class="col-md-8">
+              <input id="street" type="text" class="form-control" [(ngModel)]="contact?.address.street" [readonly]="!isEditing">
+            </div>
+          </div>
+          <div class="form-group row mb-1">
+            <label for="city" class="col-md-4 col-form-label col-form-label-sm">City</label>
+            <div class="col-md-8">
+              <input id="city" type="text" class="form-control" [(ngModel)]="contact?.address.city" [readonly]="!isEditing">
+            </div>
+          </div>
+          <div class="form-group row mb-1">
+            <label for="state" class="col-md-4 col-form-label col-form-label-sm">State</label>
+            <div class="col-md-8">
+              <select id="state" [(ngModel)]="contact?.address.state" [disabled]="!isEditing" class="form-control">
+                <option [value]="state" *ngFor="let state of stateList">
+                  {{state}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row mb-1">
+            <label for="zip" class="col-md-4 col-form-label col-form-label-sm">Zip</label>
+            <div class="col-md-8">
+              <input id="zip" type="text" class="form-control" [(ngModel)]="contact?.address.zip" [readonly]="!isEditing">
+            </div>
+          </div>
+          <h5 class="row my-1">
+            Image
+          </h5>
+          <div>
+            <div class="form-group row mb-1">
+              <label for="image" class="col-md-4 col-form-label col-form-label-sm">Image</label>
+              <div class="col-md-8">
+                <input id="image" type="text" class="form-control" [(ngModel)]="contact?.images.large" [readonly]="!isEditing">
+              </div>
+            </div>
+            <div class="row" *ngIf="contact?.images.large">
+              <div class="col-md-8 offset-4">
+                <img [src]="contact?.images.large" alt="Contact Image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <pre>{{contact | json}}</pre>
+      </div> -->
+    </div>
+  </div>
 </div>
