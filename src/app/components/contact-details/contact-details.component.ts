@@ -15,6 +15,7 @@ export class ContactDetailsComponent implements OnInit {
   contact: Contact;
   originalContact: Contact;
   isCreating: boolean;
+  isDeleting: boolean;
   isEditing: boolean;
   isSaving: boolean;
   stateList: string[];
@@ -81,6 +82,22 @@ export class ContactDetailsComponent implements OnInit {
     }
 
     return res;
+  }
+
+  deleteContact() {
+    const originalEmail = this.originalContact && this.originalContact.email;
+    this.isDeleting = true;
+    this.contactService.deleteContact(originalEmail)
+      .then(res => {
+        this.router.navigate(['contacts'], {
+          replaceUrl: true
+        });
+        this.isDeleting = false;
+      })
+      .catch((err: Error) => {
+        this.validationErrors = [];
+        this.validationErrors = [err.message];
+      });
   }
 
   saveContact() {

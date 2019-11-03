@@ -19,6 +19,9 @@
         </button>
         <span class="mx-auto" style="display: inline-block;">
         </span>
+        <button type="button" class="btn btn-outline-danger border-0" (click)="deleteContact()">
+          <i class="fa fa-trash"></i> Delete
+        </button>
         <button type="button" class="btn btn-outline-secondary border-0" (click)="startEdit()" *ngIf="!isEditing">
           <i class="fa fa-pencil"></i> Edit
         </button>

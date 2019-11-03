@@ -68,6 +68,20 @@ export class ContactService {
     return contact;
   }
 
+  deleteContact(email: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      const localContacts = this.getContactList();
+      const idx = localContacts.findIndex(p => p.email === email);
+      if (idx > -1) {
+        localContacts.splice(idx, 1);
+        this.Contacts.next(localContacts);
+        resolve(true);
+      } else {
+        reject(new Error(`Contact with email address ${email} was not found.`));
+      }
+    });
+  }
+
   updateContact(currentEmail: string, update: Contact): Promise<Contact> {
     return new Promise<Contact>((resolve, reject) => {
       // traditionally this would be a db call, rather than just a local replacement,
