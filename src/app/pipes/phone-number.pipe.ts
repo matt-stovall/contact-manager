@@ -7,6 +7,9 @@ import { parsePhoneNumber, CountryCode } from 'libphonenumber-js/min';
 export class PhoneNumberPipe implements PipeTransform {
 
   transform(phoneValue: number | string, country: string): any {
+    if (!phoneValue) {
+      return '';
+    }
     try {
       const phoneNumber = parsePhoneNumber(phoneValue.toString(), country as CountryCode);
       return phoneNumber.formatNational();

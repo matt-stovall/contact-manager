@@ -13,7 +13,11 @@ export class ContactListComponent implements OnInit {
   contacts: Contact[] = [];
   contactsLoading: boolean;
   filter: string;
-  currentSort = null;
+  currentSort = {
+    label: "First Name",
+    field: "name.first",
+    direction: null
+  };
   sortOptions = [
     {
       label: "First Name",
@@ -45,19 +49,26 @@ export class ContactListComponent implements OnInit {
       local = Array.from(this.contacts);
     } else {
       local = this.contacts.filter(p => {
-        return JSON.stringify(p).toLowerCase()
+        const searchString = `${p.name.displayName()} ${p.email} ${p.phone}`;
+        return searchString.toLowerCase()
         .indexOf(this.filter.toLowerCase()) > -1;
       });
     }
 
     if (this.currentSort) {
       local = local.sort((a, b) => {
-        const aVal = this.currentSort.field.split('.').reduce((p, prop) => {
+        let aVal = this.currentSort.field.split('.').reduce((p, prop) => {
           return p[prop];
-        }, a).toUpperCase();
-        const bVal = this.currentSort.field.split('.').reduce((p, prop) => {
+        }, a);
+        let bVal = this.currentSort.field.split('.').reduce((p, prop) => {
           return p[prop];
-        }, b).toUpperCase();
+        }, b);
+        if (aVal) {
+          aVal = aVal.toUpperCase();
+        }
+        if (bVal) {
+          bVal = bVal.toUpperCase();
+        }
 
         const res = aVal > bVal ? 1 :
           aVal < bVal ? -1 :

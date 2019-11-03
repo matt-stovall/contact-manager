@@ -18,6 +18,7 @@ export class ContactDetailsComponent implements OnInit {
   isEditing: boolean;
   isSaving: boolean;
   stateList: string[];
+  validationErrors: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +42,6 @@ export class ContactDetailsComponent implements OnInit {
 
   getContactByEmail(email: string) {
     this.contactEmail = email;
-    console.log(email);
     if (this.contactEmail) {
       this.originalContact = this.contactService
         .getContactByEmail(this.contactEmail);
@@ -53,7 +53,6 @@ export class ContactDetailsComponent implements OnInit {
 
   setContactToOriginal() {
     this.contact = this.originalContact.getCopy();
-    console.dir(this.contact);
   }
 
   cancelEdit() {
@@ -68,24 +67,45 @@ export class ContactDetailsComponent implements OnInit {
     this.isEditing = true;
   }
 
+  isValid(): boolean{
+    this.validationErrors = [];
+    let res = true;
+
+    if (!this.contact.email) {
+      res = false;
+      this.validationErrors.push('Contact must have an email.');
+    }
+    if (!this.contactService.isEmailUnique(this.contact.email)) {
+      res = false;
+      this.validationErrors.push(`Email must be unique - ${this.contact.email} is already in use.`);
+    }
+
+    return res;
+  }
+
   saveContact() {
     this.isSaving = true;
-    const originalEmail = this.originalContact && this.originalContact.email;
-    this.contactService.updateContact(originalEmail, this.contact).then(res => {
-      if (originalEmail !== res.email) {
-        // if this is true, then we've updated the email - it's the closest we have to a primary key,
-        // but it can still change so we have to account for those changes - easiest way is to reload the page
-        // with the correct value
-        this.router.navigate(['contacts', res.email], {
-          skipLocationChange: true // make it tougher to navigate back to a now-nonexistent url
-        });
-      } else {
-        console.log(2);
-        this.getContactByEmail(res.email);
-      }
-      this.isEditing = false;
-      this.isSaving = false;
-    });
+    if (this.isValid()) {
+      const originalEmail = this.originalContact && this.originalContact.email;
+      this.contactService.updateContact(originalEmail, this.contact).then(res => {
+        if (originalEmail !== res.email) {
+          // if this is true, then we've updated the email - it's the closest we have to a primary key,
+          // but it can still change so we have to account for those changes - easiest way is to reload the page
+          // with the correct value
+
+          this.router.navigate(['contacts', res.email], {
+            replaceUrl: true // make it tougher to navigate back to a now-nonexistent url
+          });
+        } else {
+          this.getContactByEmail(res.email);
+        }
+        this.isEditing = false;
+        this.isSaving = false;
+      });
+    } else {
+
+      this.isSaving = null;
+    }
   }
 
 

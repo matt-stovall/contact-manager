@@ -58,8 +58,12 @@ export class ContactService {
     });
   }
 
+  getContactList(): Contact[]{
+    return (this.Contacts as BehaviorSubject<Contact[]>).value;
+  }
+
   getContactByEmail(contactEmail: string): Contact {
-    const localContacts = (this.Contacts as BehaviorSubject<Contact[]>).value;
+    const localContacts = this.getContactList();
     const contact = localContacts.find(p => p.email === contactEmail);
     return contact;
   }
@@ -69,7 +73,7 @@ export class ContactService {
       // traditionally this would be a db call, rather than just a local replacement,
       // hence the promise return type, plus that it allows for guaranteed timing for
       // post-update actions
-      const localContacts = (this.Contacts as BehaviorSubject<Contact[]>).value;
+      const localContacts = this.getContactList();
       const idx = localContacts.findIndex(p => p.email === currentEmail);
       if (idx > -1) {
         localContacts.splice(idx, 1, update);
@@ -82,4 +86,10 @@ export class ContactService {
       }
     });
   }
+
+  isEmailUnique(email: string): boolean {
+    const localContacts = this.getContactList();
+    return !localContacts.find(p => (p.email && p.email.toLowerCase()) === (email && email.toLowerCase()));
+  }
+
 }

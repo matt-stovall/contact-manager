@@ -9,7 +9,7 @@ displayName(): string {
   if (!this.first && !this.last) {
     return '';
   }
-  return new TitleCasePipe().transform(`${this.first} ${this.last}`);
+  return new TitleCasePipe().transform(`${this.first || ''} ${this.last || ''}`);
 }
 
   constructor(first?: string, last?: string) {

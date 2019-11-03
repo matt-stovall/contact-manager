@@ -26,10 +26,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('contact-list');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('contact-list app is running!');
-  });
 });
