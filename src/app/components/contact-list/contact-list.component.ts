@@ -1,7 +1,7 @@
 import { Subject, BehaviorSubject, bindCallback } from 'rxjs';
 import { ContactService } from './../../services/contact.service';
 import { Component, OnInit } from '@angular/core';
-import { Contact } from 'src/app/model/contact';
+import { Contact } from './../../model/contact';
 
 @Component({
   selector: 'app-contact-list',
