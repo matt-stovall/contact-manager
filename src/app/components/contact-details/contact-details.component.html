@@ -19,8 +19,9 @@
         </button>
         <span class="mx-auto" style="display: inline-block;">
         </span>
-        <button type="button" class="btn btn-outline-danger border-0" (click)="deleteContact()">
-          <i class="fa fa-trash"></i> Delete
+        <button type="button" class="btn btn-outline-danger border-0" (click)="deleteContact()" *ngIf="!isCreating">
+          <span *ngIf="isDeleting" class="spinner-border spinner-border-sm"></span>
+          <i *ngIf="!isDeleting" class="fa fa-trash"></i> Delete
         </button>
         <button type="button" class="btn btn-outline-secondary border-0" (click)="startEdit()" *ngIf="!isEditing">
           <i class="fa fa-pencil"></i> Edit
@@ -66,7 +67,7 @@
           <div class="form-group row mb-1">
             <label for="phone" class="col-md-4 col-form-label col-form-label-sm">Phone</label>
             <div class="col-md-8">
-              <input id="phone" name="phone" type="tel" class="form-control" [(ngModel)]="contact.phone" [readonly]="!isEditing">
+              <input id="phone" name="phone" type="tel" class="form-control" [(ngModel)]="contact.phone" [readonly]="!isEditing" [textMask]="{mask: phoneMask}">
             </div>
           </div>
           <div class="form-group row mb-1">
@@ -126,9 +127,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <pre>{{contact | json}}</pre>
-      </div> -->
     </div>
   </form>
 </div>

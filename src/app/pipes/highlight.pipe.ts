@@ -11,7 +11,7 @@ export class HighlightPipe implements PipeTransform {
       const startIndex = value.toLowerCase().indexOf(args.toLowerCase());
       if (startIndex !== -1) {
         const matchingString = value.substr(startIndex, args.length);
-        return value.replace(matchingString, "<span class='highlight'>" + matchingString + "</span>");
+        return value.replace(matchingString, '<span class=\'highlight\'>' + matchingString + '</span>');
       }
 
     }

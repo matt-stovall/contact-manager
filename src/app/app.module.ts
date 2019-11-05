@@ -10,6 +10,7 @@ import { ContactListItemComponent } from './components/contact-list-item/contact
 import { ContactDetailsComponent } from './components/contact-details/contact-details.component';
 import { HighlightPipe } from './pipes/highlight.pipe';
 import { PhoneNumberPipe } from './pipes/phone-number.pipe';
+import { TextMaskModule } from 'angular2-text-mask';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PhoneNumberPipe } from './pipes/phone-number.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TextMaskModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

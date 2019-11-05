@@ -20,6 +20,8 @@ export class ContactDetailsComponent implements OnInit {
   isSaving: boolean;
   stateList: string[];
   validationErrors: string[];
+  phoneMask: any = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -68,7 +70,7 @@ export class ContactDetailsComponent implements OnInit {
     this.isEditing = true;
   }
 
-  isValid(): boolean{
+  isValid(): boolean {
     this.validationErrors = [];
     let res = true;
 

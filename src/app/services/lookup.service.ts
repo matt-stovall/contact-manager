@@ -7,7 +7,7 @@ export class LookupService {
 
   constructor() { }
 
-  getStateList(){
+  getStateList() {
     return [
       'Alabama',
       'Alaska',

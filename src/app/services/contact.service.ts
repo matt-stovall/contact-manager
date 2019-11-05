@@ -58,7 +58,7 @@ export class ContactService {
     });
   }
 
-  getContactList(): Contact[]{
+  getContactList(): Contact[] {
     return (this.Contacts as BehaviorSubject<Contact[]>).value;
   }
 

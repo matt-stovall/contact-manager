@@ -14,19 +14,19 @@ export class ContactListComponent implements OnInit {
   contactsLoading: boolean;
   filter: string;
   currentSort = {
-    label: "First Name",
-    field: "name.first",
-    direction: null
+    label: 'First Name',
+    field: 'name.first',
+    direction: true
   };
   sortOptions = [
     {
-      label: "First Name",
-      field: "name.first",
+      label: 'First Name',
+      field: 'name.first',
       direction: null
     },
     {
-      label: "Last Name",
-      field: "name.last",
+      label: 'Last Name',
+      field: 'name.last',
       direction: null
     }
   ];
@@ -92,7 +92,7 @@ export class ContactListComponent implements OnInit {
         sort.direction = true;
         break;
     }
-    if (sort.direction !== null){
+    if (sort.direction !== null) {
       this.currentSort = sort;
     } else {
       this.currentSort = null;

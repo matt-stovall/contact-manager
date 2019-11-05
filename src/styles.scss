@@ -1,9 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "bootstrap/dist/css/bootstrap.css";
-@import "font-awesome/css/font-awesome.css";
+@import "bootstrap/scss/bootstrap.scss";
+// @import "font-awesome/css/font-awesome.min.css";
+// works locally, but stackblitz is having a cow trying to resolve them,
+// decode them, and then finally use them.  Unhappily added an inline script
+// call to pull the font in (index.html, immediately after router)
+
+
 
 .highlight{
-  background-color: rgba(1,1,1,.10);
+  background-color: rgba(248, 246, 95, 0.562);
   font-weight: bold;
 }
 input, select, textarea{

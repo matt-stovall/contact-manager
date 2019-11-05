@@ -1,3 +1,4 @@
+import { TextMaskModule } from 'angular2-text-mask';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,7 @@ describe('ContactDetailsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ContactDetailsComponent ],
       // providers: [{provide: ActivatedRoute, useValue: route}],
-      imports: [FormsModule, HttpClientTestingModule, RouterTestingModule]
+      imports: [FormsModule, HttpClientTestingModule, RouterTestingModule, TextMaskModule]
     })
     .compileComponents();
   }));
