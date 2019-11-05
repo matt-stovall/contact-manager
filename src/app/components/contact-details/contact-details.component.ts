@@ -78,17 +78,24 @@ export class ContactDetailsComponent implements OnInit {
       res = false;
       this.validationErrors.push('Contact must have an email.');
     }
-    if (!this.contactService.isEmailUnique(this.contact.email)) {
-      res = false;
-      this.validationErrors.push(`Email must be unique - ${this.contact.email} is already in use.`);
+    if (this.getOriginalEmail() !== this.contact.email) {
+      // if the email didn't change, clearly it won't be unique
+      if (!this.contactService.isEmailUnique(this.contact.email)) {
+        res = false;
+        this.validationErrors.push(`Email must be unique - ${this.contact.email} is already in use.`);
+      }
     }
 
     return res;
   }
 
+  getOriginalEmail() {
+    return this.originalContact && this.originalContact.email;
+  }
+
   deleteContact() {
-    const originalEmail = this.originalContact && this.originalContact.email;
     this.isDeleting = true;
+    const originalEmail = this.getOriginalEmail();
     this.contactService.deleteContact(originalEmail)
       .then(res => {
         this.router.navigate(['contacts'], {
@@ -105,7 +112,7 @@ export class ContactDetailsComponent implements OnInit {
   saveContact() {
     this.isSaving = true;
     if (this.isValid()) {
-      const originalEmail = this.originalContact && this.originalContact.email;
+      const originalEmail = this.getOriginalEmail();
       this.contactService.updateContact(originalEmail, this.contact).then(res => {
         if (originalEmail !== res.email) {
           // if this is true, then we've updated the email - it's the closest we have to a primary key,
