@@ -4,7 +4,7 @@
 <div *ngIf="!contactsLoading" class="row justify-content-center">
   <div class="col col-md-8 col-lg-6">
     <div class="row">
-      
+
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">
@@ -58,9 +58,14 @@
             </div>
           </div>
         </div>
-      
+
     </div>
     <div class="list-group list-group-flush row">
+      <div class="d-flex justify-content-center" *ngIf="!filteredContacts || filteredContacts.length < 1">
+        <h6>
+            No Contacts Found
+        </h6>
+      </div>
       <app-contact-list-item
         *ngFor="let contact of filteredContacts"
         [contact]="contact"
