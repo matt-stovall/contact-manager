@@ -9,4 +9,10 @@ describe('LookupService', () => {
     const service: LookupService = TestBed.get(LookupService);
     expect(service).toBeTruthy();
   });
+
+  it('getStateList should return a list of 50 states', () => {
+    const service: LookupService = TestBed.get(LookupService);
+    const vals = service.getStateList();
+    expect(vals.length).toBe(50);
+  });
 });

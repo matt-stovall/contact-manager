@@ -24,7 +24,7 @@ export class ContactService {
     // specifies version 1.2 because the model fits a simple demo better than 1.3
     const dummyUrl = 'https://randomuser.me/api/1.2/?inc=name,location,phone,email,picture&format=json&results=50&nat=us';
     this.contactsLoading.next(true);
-    this.http.get<ContactQueryResponse>(dummyUrl).subscribe(result => {
+    return this.http.get<ContactQueryResponse>(dummyUrl).toPromise().then(result => {
       this.Contacts.next(result.results.map(p => {
         const contact = new Contact();
 
@@ -55,6 +55,7 @@ export class ContactService {
         return contact;
       }));
       this.contactsLoading.next(false);
+      return this.getContactList();
     });
   }
 
